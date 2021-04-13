@@ -8,7 +8,7 @@ import useColorScheme from "../hooks/useColorScheme";
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   return (
-    <View style={styles.container}>
+    <View>
       <View style={StyleSheet.absoluteFill}>
         <BackgroundTriangle color={Colors[colorScheme].tabBarBackground} />
       </View>
