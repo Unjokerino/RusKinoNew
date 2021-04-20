@@ -38,7 +38,7 @@ export function Text(props: TextProps) {
   return <DefaultText style={[{ color }, style]} {...otherProps} />;
 }
 
-export function View(props: ViewProps) {
+export function BackgroundView(props: ViewProps) {
   const { style, lightColor, darkColor, children, ...otherProps } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
@@ -54,8 +54,20 @@ export function View(props: ViewProps) {
 
   return (
     <DefaultView style={[{ backgroundColor, flex: 1 }, style]} {...otherProps}>
-      <BackgroundTriangle color={backgroundColorTriangle} />
+      <View style={{ position: "absolute" }}>
+        <BackgroundTriangle color={backgroundColorTriangle} />
+      </View>
       {children}
     </DefaultView>
   );
+}
+
+export function View(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

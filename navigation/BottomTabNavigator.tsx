@@ -25,16 +25,6 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
-  const defaultOptions: StackNavigationOptions = {
-    headerStyle: {
-      backgroundColor: "#f4511e",
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-    },
-  };
-
   return (
     <BottomTab.Navigator
       tabBar={(props) => (
@@ -54,16 +44,43 @@ export default function BottomTabNavigator() {
         options={{}}
       />
 
-      <BottomTab.Screen name={THEATRE} component={TheatreScreen} options={{}} />
       <BottomTab.Screen
-        name={REPERTOIRE}
-        component={RepertoireScreen}
+        name={THEATRE}
+        component={TheatreNavigator}
         options={{}}
       />
-      <BottomTab.Screen name={CLUBS} component={ClubsScreen} options={{}} />
+      <BottomTab.Screen
+        name={REPERTOIRE}
+        component={RepertoireNavigator}
+        options={{}}
+      />
+      <BottomTab.Screen name={CLUBS} component={ClubsNavigator} options={{}} />
     </BottomTab.Navigator>
   );
 }
+
+const useDefaultOptions = () => {
+  const colorScheme = useColorScheme();
+
+  const HeaderRight = () => (
+    <View style={{ flexDirection: "row" }}>
+      <FontAwesome color={"#fff"} size={24} name="calendar" />
+      <Entypo color={"#fff"} size={24} name="dots-three-vertical" />
+    </View>
+  );
+  const defaultOptions: StackNavigationOptions = {
+    headerTitleAlign: "left",
+    headerStyle: {
+      backgroundColor: Colors[colorScheme].headerBackground,
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold",
+    },
+    headerRight: HeaderRight,
+  };
+  return defaultOptions;
+};
 
 const HomeStack = createStackNavigator();
 
@@ -76,65 +93,21 @@ const RepertoireStack = createStackNavigator();
 const ClubsStack = createStackNavigator();
 
 function HomeNavigator() {
-  const colorScheme = useColorScheme();
-  const HeaderRight = () => (
-    <View style={{ flexDirection: "row" }}>
-      <FontAwesome color={"#fff"} size={24} name="sun-o" />
-      <FontAwesome color={"#fff"} size={24} name="calendar" />
-      <Entypo color={"#fff"} size={24} name="dots-three-vertical" />
-    </View>
-  );
-  const defaultOptions: StackNavigationOptions = {
-    headerTitleAlign: "left",
-    headerStyle: {
-      backgroundColor: Colors[colorScheme].headerBackground,
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-    },
-    headerRight: HeaderRight,
-  };
-
-  const homeOptions: StackNavigationOptions = {
-    headerShown: false,
-  };
+  const defaultOptions = useDefaultOptions();
 
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
         name={HOME}
         component={HomeScreen}
-        options={{ ...homeOptions }}
+        options={{ ...defaultOptions }}
       />
     </HomeStack.Navigator>
   );
 }
 
 function AfishaNavigator() {
-  const colorScheme = useColorScheme();
-  const HeaderRight = () => (
-    <View style={{ flexDirection: "row" }}>
-      <FontAwesome color={"#fff"} size={24} name="sun-o" />
-      <FontAwesome color={"#fff"} size={24} name="calendar" />
-      <Entypo color={"#fff"} size={24} name="dots-three-vertical" />
-    </View>
-  );
-  const defaultOptions: StackNavigationOptions = {
-    headerTitleAlign: "left",
-    headerStyle: {
-      backgroundColor: Colors[colorScheme].headerBackground,
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-    },
-    headerRight: HeaderRight,
-  };
-
-  const homeOptions: StackNavigationOptions = {
-    headerShown: false,
-  };
+  const defaultOptions = useDefaultOptions();
 
   return (
     <AfishaStack.Navigator>
@@ -144,5 +117,47 @@ function AfishaNavigator() {
         options={{ ...defaultOptions }}
       />
     </AfishaStack.Navigator>
+  );
+}
+
+function TheatreNavigator() {
+  const defaultOptions = useDefaultOptions();
+
+  return (
+    <TheatreStack.Navigator>
+      <TheatreStack.Screen
+        name={THEATRE}
+        component={TheatreScreen}
+        options={{ ...defaultOptions }}
+      />
+    </TheatreStack.Navigator>
+  );
+}
+
+function RepertoireNavigator() {
+  const defaultOptions = useDefaultOptions();
+
+  return (
+    <RepertoireStack.Navigator>
+      <RepertoireStack.Screen
+        name={REPERTOIRE}
+        component={RepertoireScreen}
+        options={{ ...defaultOptions }}
+      />
+    </RepertoireStack.Navigator>
+  );
+}
+
+function ClubsNavigator() {
+  const defaultOptions = useDefaultOptions();
+
+  return (
+    <ClubsStack.Navigator>
+      <ClubsStack.Screen
+        name={CLUBS}
+        component={ClubsScreen}
+        options={{ ...defaultOptions }}
+      />
+    </ClubsStack.Navigator>
   );
 }

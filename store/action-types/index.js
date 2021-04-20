@@ -1,0 +1,19 @@
+export const AFISHA_LOAD = "AFISHA_LOAD";
+export const AFISHA_SUCCESS = "AFISHA_SUCCESS";
+export const AFISHA_FAIL = "AFISHA_FAIL";
+
+export const THEATRE_LOAD = "THEATRE_LOAD";
+export const THEATRE_SUCCESS = "THEATRE_SUCCESS";
+export const THEATRE_FAIL = "THEATRE_FAIL";
+
+export const REPERTOIRE_LOAD = "REPERTOIRE_LOAD";
+export const REPERTOIRE_SUCCESS = "REPERTOIRE_SUCCESS";
+export const REPERTOIRE_FAIL = "REPERTOIRE_FAIL";
+
+export const CLUBS_LOAD = "CLUBS_LOAD";
+export const CLUBS_SUCCESS = "CLUBS_SUCCESS";
+export const CLUBS_FAIL = "CLUBS_FAIL";
+
+export const NEWS_LOAD = "NEWS_LOAD";
+export const NEWS_SUCCESS = "NEWS_SUCCESS";
+export const NEWS_FAIL = "NEWS_FAIL";

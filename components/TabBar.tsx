@@ -10,7 +10,6 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { Text } from "./Themed";
 import { TabItem } from "./TabItem";
 import useColorScheme from "../hooks/useColorScheme";
 import Colors from "../constants/Colors";
@@ -78,7 +77,6 @@ export const TabBar = ({
               testID={options.tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={styles.tabItem}
             >
               <TabItem label={label} onPress={onPress} active={isFocused} />
             </TouchableOpacity>
@@ -101,7 +99,15 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: "#fff",
     height: 65,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
+    elevation: 5,
     justifyContent: "center",
     paddingHorizontal: 16,
     alignItems: "center",

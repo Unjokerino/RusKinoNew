@@ -1,10 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { BackgroundView } from "../components/Themed";
 
 export default function TheatreScreen() {
-  return (
-    <View>
-      <Text></Text>
-    </View>
-  );
+  return <BackgroundView></BackgroundView>;
 }
