@@ -44,7 +44,7 @@ export default function HomeScreen() {
           horizontal
           data={afisha}
           renderItem={renderItem}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item, index) => item.name + index}
         />
         <Text style={[Typography.title, styles.title]}>Афиша событий</Text>
         <FlatList
@@ -55,7 +55,7 @@ export default function HomeScreen() {
           horizontal
           data={afisha}
           renderItem={renderItem}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item, index) => item.name + index}
         />
       </ScrollView>
     </BackgroundView>

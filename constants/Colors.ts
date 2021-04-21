@@ -4,8 +4,10 @@ const tintColorDark = "#fff";
 export default {
   light: {
     text: "#000",
+    switcherColor: "#1C1C1E",
     tabBarBackground: "#fff",
     headerBackground: "#EF0000",
+    switcherSelctedColor: "#E5E5E5",
     tabItem: "#D2D2D2",
     background: "#E5E5E5",
     cardColor: "#F5F5F5",
@@ -18,6 +20,8 @@ export default {
   dark: {
     text: "#fff",
     tabItem: "#fff",
+    switcherColor: "#1C1C1E",
+    switcherSelctedColor: "#E5E5E5",
     tabBarBackground: "#38354B",
     headerBackground: "#38354B",
     cardColor: "#F5F5F5",
