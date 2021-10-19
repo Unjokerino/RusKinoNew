@@ -1,22 +1,21 @@
-import React, { ReactElement } from "react";
-import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import React from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { View, BackgroundView, Text } from "../components/Themed";
-import { BackgroundTriangle } from "../assets/icons/BackgroundTriangle";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { Image } from "../components/Image";
 import RNPickerSelect from "react-native-picker-select";
 import Typography from "../constants/Typography";
 import { AFISHA, CLUBS, REPERTOIRE, THEATRE } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 const CITIES = [
   { label: "Ноябрьск", value: "Ноябрьск" },
   { label: "Вынгапур", value: "Вынгапур" },
 ];
 
-export default function MenuScreen() {
-  const colorScheme = useColorScheme();
-  const navigation = useNavigation();
+export default function MenuScreen(props) {
+  const { navigation } = props;
+
   const CardButton = ({
     title,
     onPress,
@@ -35,7 +34,7 @@ export default function MenuScreen() {
           justifyContent: "center",
           alignItems: "center",
           marginBottom: 20,
-          backgroundColor: Colors[colorScheme].cardColor,
+          //backgroundColor: colors.cardColor,
         }}
       >
         {icon}
@@ -73,38 +72,35 @@ export default function MenuScreen() {
   ];
 
   return (
-    <BackgroundView style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require("../assets/images/ruslogo.png")}
-      />
-      <TouchableOpacity
-        style={[
-          styles.picker,
-          { backgroundColor: Colors[colorScheme].cardColor },
-        ]}
-      >
-        <RNPickerSelect
-          value={CITIES[0]}
-          placeholder={{}}
-          onValueChange={(value) => console.log(value)}
-          items={CITIES}
+    <DrawerContentScrollView {...props}>
+      <BackgroundView style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/ruslogo.png")}
         />
-      </TouchableOpacity>
-      <Text style={[Typography.title, styles.title]}>Разделы приложения</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 8,
-        }}
-      >
-        {Icons.map((icon) => (
-          <CardButton {...icon} />
-        ))}
-      </View>
-      <Text style={[Typography.title, styles.title]}>Избранное</Text>
-    </BackgroundView>
+        <TouchableOpacity style={[styles.picker, {}]}>
+          <RNPickerSelect
+            value={CITIES[0]}
+            placeholder={{}}
+            onValueChange={(value) => console.log(value)}
+            items={CITIES}
+          />
+        </TouchableOpacity>
+        <Text style={[Typography.title, styles.title]}>Разделы приложения</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 8,
+          }}
+        >
+          {Icons.map((icon) => (
+            <CardButton {...icon} />
+          ))}
+        </View>
+        <Text style={[Typography.title, styles.title]}>Избранное</Text>
+      </BackgroundView>
+    </DrawerContentScrollView>
   );
 }
 

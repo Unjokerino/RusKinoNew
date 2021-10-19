@@ -5,21 +5,19 @@ import {
   StyleSheet,
 } from "react-native";
 import { BackgroundTriangle } from "../assets/icons/BackgroundTriangle";
-
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { Colors, useColors } from "../constants/Colors";
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme();
-  const colorFromProps = props[theme];
+  const colors = useColors();
+  const colorFromProps = colors;
 
   if (colorFromProps) {
     return colorFromProps;
   } else {
-    return Colors[theme][colorName];
+    return colors[colorName];
   }
 }
 
@@ -33,29 +31,23 @@ export type ViewProps = ThemeProps & DefaultView["props"];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const { text: color } = useColors();
 
-  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+  return (
+    <DefaultText
+      style={[{ color, fontFamily: "roboto" }, style]}
+      {...otherProps}
+    />
+  );
 }
 
 export function BackgroundView(props: ViewProps) {
   const { style, lightColor, darkColor, children, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
-  const backgroundColorTriangle = useThemeColor(
-    {
-      light: Colors.light.triangleBackground,
-      dark: Colors.dark.triangleBackground,
-    },
-    "triangleBackground"
-  );
-
+  const { triangleBackground, background: backgroundColor } = useColors();
   return (
     <DefaultView style={[{ backgroundColor, flex: 1 }, style]} {...otherProps}>
-      <View style={{ position: "absolute" }}>
-        <BackgroundTriangle color={backgroundColorTriangle} />
+      <View style={{ position: "absolute", left: 0, right: 0 }}>
+        <BackgroundTriangle color={triangleBackground} />
       </View>
       {children}
     </DefaultView>
@@ -64,10 +56,7 @@ export function BackgroundView(props: ViewProps) {
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "background"
-  );
+  const { background: backgroundColor } = useColors();
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

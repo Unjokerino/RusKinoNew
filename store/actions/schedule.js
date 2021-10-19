@@ -3,6 +3,7 @@ import api from "../../services/api";
 import {
   AFISHA_FAIL,
   AFISHA_SUCCESS,
+  CLUBS_SUCCESS,
   CLUBS_FAIL,
   NEWS_FAIL,
   NEWS_SUCCESS,
@@ -44,7 +45,7 @@ export const fetchClubs = () => async (dispatch) => {
   try {
     const response = await api.fetchClubs();
     const payload = await response.json();
-    dispatch({ type: CLUBS_FAIL, payload });
+    dispatch({ type: CLUBS_SUCCESS, payload });
   } catch (error) {
     dispatch({ type: CLUBS_FAIL, error });
   }

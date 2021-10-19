@@ -10,9 +10,8 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
+import { useColors } from "../constants/Colors";
 import { TabItem } from "./TabItem";
-import useColorScheme from "../hooks/useColorScheme";
-import Colors from "../constants/Colors";
 
 export interface TabBarProps {
   style?: StyleProp<ViewStyle>;
@@ -24,7 +23,7 @@ export const TabBar = ({
   navigation,
 }: BottomTabBarProps<BottomTabBarOptions>) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const colorScheme = useColorScheme();
+  const colors = useColors();
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -34,10 +33,7 @@ export const TabBar = ({
   return (
     <View style={styles.container}>
       <View
-        style={[
-          styles.tabBar,
-          { backgroundColor: Colors[colorScheme].tabBarBackground },
-        ]}
+        style={[styles.tabBar, { backgroundColor: colors.tabBarBackground }]}
       >
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];

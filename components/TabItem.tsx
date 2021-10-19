@@ -13,8 +13,7 @@ import {
   Animated,
 } from "react-native";
 import { AFISHA, CLUBS, HOME, REPERTOIRE, THEATRE } from "../constants";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { useColors } from "../constants/Colors";
 import { Text } from "./Themed";
 
 export interface TabItemProps {
@@ -47,10 +46,10 @@ export const TabItem: React.FC<TabItemProps> = ({
 }) => {
   const Icon = ICONS[label].type;
   const iconName = ICONS[label].name;
-  const colorScheme = useColorScheme();
+  const colors = useColors();
   const animatedValue = useRef(new Animated.Value(0)).current;
   const activeColor = "#c9379d";
-  const inactiveColor = Colors[colorScheme].tabItem;
+  const inactiveColor = colors.tabItem;
 
   const animation = (toValue: number) => {
     return Animated.timing(animatedValue, {
@@ -71,7 +70,7 @@ export const TabItem: React.FC<TabItemProps> = ({
   });
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 100],
-    outputRange: [Colors[colorScheme].tabBarBackground, "#f6d6ee"],
+    outputRange: [colors.tabBarBackground, "#f6d6ee"],
   });
 
   return (

@@ -3,25 +3,30 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import { Image } from "./Image";
+import { useColors } from "../constants/Colors";
 import { Afisha } from "../types/store/schedule";
 
-export default function ItemCard({ name, poster, seanses }: Afisha) {
-  const colorScheme = useColorScheme();
+export default function ItemCard({
+  name,
+  poster,
+  seanses,
+  onPress,
+}: Afisha & { onPress: () => void }) {
+  const colors = useColors();
   const [loading, setLoading] = useState(false);
   return (
     <TouchableOpacity
-      style={[styles.card, { backgroundColor: Colors[colorScheme].cardColor }]}
+      onPress={onPress}
+      style={[styles.card, { backgroundColor: colors.cardColor }]}
     >
       {loading && (
         <View style={[styles.loader]}>
-          <ActivityIndicator color={Colors[colorScheme].headerBackground} />
+          <ActivityIndicator color={colors.headerBackground} />
         </View>
       )}
       <Image
@@ -38,12 +43,10 @@ export default function ItemCard({ name, poster, seanses }: Afisha) {
           {name}
         </Text>
         <View style={styles.dates}>
-          {seanses.map((seanse) => (
+          {seanses.map((seanse, index) => (
             <View
-              style={[
-                styles.date,
-                { borderColor: Colors[colorScheme].tabIconDefault },
-              ]}
+              key={index}
+              style={[styles.date, { borderColor: colors.tabIconDefault }]}
             >
               <Text numberOfLines={1} style={styles.dateText}>
                 {moment(seanse.date).format("hh:mm")}
@@ -63,6 +66,17 @@ const styles = StyleSheet.create({
     width: 164,
     overflow: "hidden",
     borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+
+    elevation: 7,
+
+    marginVertical: 16,
   },
   loader: {
     position: "absolute",
@@ -100,6 +114,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 5,
+    height: 100,
   },
   image: {
     flex: 2,

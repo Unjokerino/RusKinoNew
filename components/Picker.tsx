@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
+import RNPickerSelect from "react-native-picker-select";
+import { useColors } from "../constants/Colors";
+
 const CITIES = [
   { label: "Ноябрьск", value: "Ноябрьск" },
   { label: "Вынгапур", value: "Вынгапур" },
 ];
-import RNPickerSelect from "react-native-picker-select";
+
 export default function Picker() {
-  const colorScheme = useColorScheme();
+  const colors = useColors();
+  const pickerRef = useRef<RNPickerSelect>(null);
+
   return (
     <TouchableOpacity
-      style={[
-        styles.picker,
-        { backgroundColor: Colors[colorScheme].cardColor },
-      ]}
+      onPress={() => {
+        console.log(pickerRef.current?.togglePicker());
+      }}
+      style={[styles.picker, { backgroundColor: colors.cardColor }]}
     >
       <RNPickerSelect
+        ref={pickerRef}
         value={CITIES[0]}
-        placeholder={{}}
         onValueChange={(value) => console.log(value)}
         items={CITIES}
       />
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     height: 40,
     overflow: "hidden",
-    width: 123,
+    width: 200,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
